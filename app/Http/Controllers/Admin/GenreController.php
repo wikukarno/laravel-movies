@@ -7,6 +7,7 @@ use App\Http\Requests\GenreRequest;
 use App\Models\Genre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use Inertia\Inertia;
 use Illuminate\Support\Str;
 
@@ -67,16 +68,18 @@ class GenreController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        try {
+            $genre = Genre::findOrFail($id);
+            $this->authorize('update', $genre);
 
-        $genre = Genre::findOrFail($id);
-        $this->authorize('update', $genre);
+            $genre->update([
+                'name' => $request->name,
+                'slug' => Str::slug($request->name)
+            ]);
 
-        $genre->update([
-            'name' => $request->name,
-            'slug' => Str::slug($request->name)
-        ]);
-
-        return to_route('genre.index');
+        } catch (\Exception $e) {
+            return back()->with('error', 'Error: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -84,7 +87,7 @@ class GenreController extends Controller
      */
     public function destroy(string $id)
     {
-        
+
         $genre = Genre::findOrFail($id);
         $this->authorize('delete', $genre);
 

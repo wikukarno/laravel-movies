@@ -1,6 +1,6 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Sidebar from "@/Includes/Sidebar";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import DataTable from "react-data-table-component";
@@ -8,22 +8,24 @@ import Breadcrumb from "@/Components/Breadcrumb";
 import TextInput from "@/Components/TextInput";
 import SecondaryButton from "@/Components/SecondaryButton";
 import DangerButton from "@/Components/DangerButton";
-import ModalDelete from "@/Components/ModalDelete";
 import Modal from "@/Components/Modal";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Index({ auth, genre }) {
     const [filterText, setFilterText] = useState("");
+    const [dataGenre, setDataGenre] = useState(null);
+
     const filterItem = genre.filter((item) =>
         item.name.toLowerCase().includes(filterText.toLowerCase())
     );
 
-    const { data, setData, delete: destroy, reset } = useForm({});
-
-    // show hide handle modal delete
     const [confirmingGenreDeletion, setConfirmingGenreDeletion] =
         useState(false);
 
-    const [dataGenre, setDataGenre] = useState(null);
+    const { data, setData, delete: destroy, reset, wasSuccessful, errors } = useForm({});
+
+    // show hide handle modal delete
 
     const confirmGenreDeletion = (id) => {
         setDataGenre(id);
@@ -48,10 +50,22 @@ export default function Index({ auth, genre }) {
         }
     };
 
+    useEffect(() => {
+        if (wasSuccessful) {
+            toast.success("Genre deleted successfully");
+        }
+
+        if (errors) {
+            for (const key in errors) {
+                toast.error(errors[key]);
+            }
+        }
+    }, [wasSuccessful, errors]);
+
     const columns = [
         {
             name: "No",
-            selector: (row, index) => index + 1,
+            selector: (_, index) => index + 1,
         },
         {
             name: "Name",
@@ -127,14 +141,11 @@ export default function Index({ auth, genre }) {
             <Modal show={confirmingGenreDeletion} onClose={closeModal}>
                 <form onSubmit={deleteGenre} className="p-6">
                     <h2 className="text-lg font-medium text-gray-900 dark:text-gray-100">
-                        Are you sure you want to delete your account?
+                        Are you sure you want to delete this data?
                     </h2>
 
                     <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                        Once your account is deleted, all of its resources and
-                        data will be permanently deleted. Please enter your
-                        password to confirm you would like to permanently delete
-                        your account.
+                        This action cannot be undone.
                     </p>
 
                     <div className="mt-6 flex justify-end">
@@ -143,11 +154,13 @@ export default function Index({ auth, genre }) {
                         </SecondaryButton>
 
                         <DangerButton className="ms-3">
-                            Delete Account
+                            Delete Data
                         </DangerButton>
                     </div>
                 </form>
             </Modal>
+
+            <ToastContainer />
         </AuthenticatedLayout>
     );
 }
