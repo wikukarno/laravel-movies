@@ -1,23 +1,39 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Sidebar from "@/Includes/Sidebar";
-import React from "react";
+import React, { useEffect } from "react";
 import { Head, Link, useForm, usePage } from "@inertiajs/react";
 import Breadcrumb from "@/Components/Breadcrumb";
 import InputLabel from "@/Components/InputLabel";
 import TextInput from "@/Components/TextInput";
 import PrimaryButton from "@/Components/PrimaryButton";
 import SecondaryButton from "@/Components/SecondaryButton";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function Create({ auth }) {
     const genre = usePage().props.genre;
-    const { data, setData, put, processing, errors, reset } = useForm({
-        name: genre.name,
-    });
+    const { data, setData, put, processing, errors, reset, wasSuccessful } =
+        useForm({
+            name: genre.name,
+        });
     const submit = (e) => {
         e.preventDefault();
 
         put(route("genre.update", genre.id));
     };
+
+    useEffect(() => {
+        if (wasSuccessful) {
+            toast.success("Genre updated successfully");
+        }
+
+        if (errors) {
+            for (const key in errors) {
+                toast.error(errors[key]);
+            }
+        }
+    }, [wasSuccessful, errors]);
+
     return (
         <AuthenticatedLayout
             user={auth.user}
@@ -60,7 +76,7 @@ export default function Create({ auth }) {
                                     <div className="grid grid-cols-2 gap-4 mt-10">
                                         <Link href={route("genre.index")}>
                                             <SecondaryButton className="w-full">
-                                                Cancel
+                                                Back
                                             </SecondaryButton>
                                         </Link>
                                         <PrimaryButton
@@ -76,6 +92,7 @@ export default function Create({ auth }) {
                     </div>
                 </div>
             </div>
+            <ToastContainer />
         </AuthenticatedLayout>
     );
 }
