@@ -40,7 +40,7 @@ class AuthenticatedSessionController extends Controller
         }elseif (Auth::user()->roles == 'user') {
             return to_route('user.dashboard');
         }else{
-            return to_route('login');
+            return to_route('home');
         }
     }
 

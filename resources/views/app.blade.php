@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" class="scroll-smooth focus:scroll-auto" data-theme="light">
+<html lang="en" dir="ltr" class="scroll-smooth focus:scroll-auto" data-theme="black">
 
 <head>
     <meta charset="utf-8">
@@ -29,7 +29,7 @@
     @inertiaHead
 </head>
 
-<body class=" bg-white [&.dark]:bg-main-dark font-jost relative text-[15px] font-normal leading-[1.5] m-0 p-0">
+<body class="font-jost relative text-[15px] font-normal leading-[1.5] m-0 p-0">
     @inertia
 
     <!-- inject:js-->

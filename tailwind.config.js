@@ -1,5 +1,5 @@
-import defaultTheme from 'tailwindcss/defaultTheme';
-import forms from '@tailwindcss/forms';
+import defaultTheme from "tailwindcss/defaultTheme";
+import forms from "@tailwindcss/forms";
 
 /** @type {import('tailwindcss').Config} */
 export default {
@@ -14,7 +14,7 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: "#8231D3",
+                primary: "#089216",
                 secondary: "#5840FF",
                 success: "#01B81A",
                 pink: "#f2eafb",
@@ -23,7 +23,7 @@ export default {
                 info: "#00AAFF",
                 link: "#1890ff",
                 dark: "#0A0A0A",
-                "primary-hbr": "#6726A8",
+                "primary-hbr": "#0b6e0b",
                 "secondary-hbr": "#3520C8",
                 "success-hbr": "#0D811D",
                 "info-hbr": "#0787C7",
@@ -131,6 +131,39 @@ export default {
 
     plugins: [forms, require("daisyui")],
     daisyui: {
-        themes: ["light", "dark", "cupcake"],
+        themes: [
+            "light",
+            "dark",
+            "cupcake",
+            "bumblebee",
+            "emerald",
+            "corporate",
+            "synthwave",
+            "retro",
+            "cyberpunk",
+            "valentine",
+            "halloween",
+            "garden",
+            "forest",
+            "aqua",
+            "lofi",
+            "pastel",
+            "fantasy",
+            "wireframe",
+            "black",
+            "luxury",
+            "dracula",
+            "cmyk",
+            "autumn",
+            "business",
+            "acid",
+            "lemonade",
+            "night",
+            "coffee",
+            "winter",
+            "dim",
+            "nord",
+            "sunset",
+        ],
     },
 };
