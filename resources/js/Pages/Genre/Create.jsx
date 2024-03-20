@@ -58,11 +58,11 @@ export default function Create({ auth }) {
                                         </div>
                                     </div>
                                     <div className="grid grid-cols-2 gap-4 mt-10">
-                                            <Link href={route("genre.index")}>
-                                                <SecondaryButton className="w-full">
-                                                        Cancel
-                                                </SecondaryButton>
-                                            </Link>
+                                        <Link href={route("genre.index")}>
+                                            <SecondaryButton className="w-full">
+                                                Cancel
+                                            </SecondaryButton>
+                                        </Link>
                                         <PrimaryButton
                                             type="submit"
                                             className="w-full"

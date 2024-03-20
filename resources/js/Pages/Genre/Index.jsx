@@ -23,7 +23,14 @@ export default function Index({ auth, genre }) {
     const [confirmingGenreDeletion, setConfirmingGenreDeletion] =
         useState(false);
 
-    const { data, setData, delete: destroy, reset, wasSuccessful, errors } = useForm({});
+    const {
+        data,
+        setData,
+        delete: destroy,
+        reset,
+        wasSuccessful,
+        errors,
+    } = useForm({});
 
     // show hide handle modal delete
 
@@ -74,11 +81,8 @@ export default function Index({ auth, genre }) {
         {
             name: "Action",
             cell: (row) => (
-                <div className="flex">
-                    <Link
-                        href={route("genre.edit", row.id)}
-                        className="text-blue-600 hover:text-blue-800"
-                    >
+                <div className="flex gap-1">
+                    <Link href={route("genre.edit", row.id)}>
                         <SecondaryButton>Edit</SecondaryButton>
                     </Link>
                     <DangerButton onClick={() => confirmGenreDeletion(row.id)}>

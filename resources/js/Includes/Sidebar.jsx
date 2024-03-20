@@ -11,16 +11,7 @@ export default function Sidebar() {
             <div className="flex w-[280px] border-e border-[#edf2f9] dark:border-box-dark-up logo-wrapper items-center h-[71px] dark:bg-box-dark-up">
                 <a href="index.html" className="block text-center">
                     <div className="logo-full">
-                        <img
-                            className="ps-[27px] dark:hidden"
-                            src="/images/logos/logo-dark.png"
-                            alt="Logo"
-                        />
-                        <img
-                            className="ps-[27px] hidden dark:block"
-                            src="images/logos/logo-white.png"
-                            alt="Logo"
-                        />
+                        <img className="p-2" src="/logo-light.png" alt="Logo" />
                     </div>
                     <div className="hidden logo-fold">
                         <img
