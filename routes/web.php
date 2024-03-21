@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Admin\GenreController;
+use App\Http\Controllers\Admin\MovieController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,7 @@ Route::prefix('admin')
         })->name('admin.dashboard');
 
         Route::resource('genre', GenreController::class);
+        Route::resource('movie', MovieController::class);
     });
 
 Route::middleware('auth')->group(function () {

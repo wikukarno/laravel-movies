@@ -45,6 +45,15 @@ export default function Sidebar() {
                             Genre
                         </NavLink>
                     </li>
+                    <li className="relative">
+                        <NavLink
+                            iconName="uil uil-film"
+                            href={route("movie.index")}
+                            active={route().current("movie.index")}
+                        >
+                            Movie
+                        </NavLink>
+                    </li>
                     <li className="relative mt-5">
                         <Link
                             href={route("logout")}
