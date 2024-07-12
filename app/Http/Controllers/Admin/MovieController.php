@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Movie;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
+use Illuminate\Support\Str;
 
 class MovieController extends Controller
 {
@@ -31,17 +32,11 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        Movie::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'release_date' => $request->release_date,
-            'rating' => $request->rating,
-            'country' => $request->country,
-            'genre_id' => $request->genre_id,
-            'actors' => $request->actors,
-            'director' => $request->director,
-            'thumbanail' => $request->file('thumbnail')->store('assets/movies', 'public')
-        ]);
+        $data = $request->all();
+        $data['user_id'] = auth()->user()->id;
+        $data['slug'] = Str::slug($request->title);
+        $data['thumbnail'] = $request->file('thumbnail')->store('public/movies');
+        Movie::create($data);
     }
 
     /**
@@ -49,7 +44,8 @@ class MovieController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $data = Movie::find($id);
+        return Inertia::render('Movie/Show', compact('data'));
     }
 
     /**
